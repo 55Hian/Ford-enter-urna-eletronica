@@ -18,3 +18,12 @@
      1. quantidade e percentual de votos por candidato
      2. quantidade e percenual de votos brancos e nulos
      3. candidato vencedor no momento(com soma dos votos em branco)
+
+pseudo codigo:
+
+1. inicio do programa
+2. declaração das variaveis
+3. inicialização dos imputs de cada função da urna
+4. enviar mensagem solicitando o numero do candidato ao votante
+5. incrementear 1 a variavel correspondente
+6. caso o botão de encerrar votaçao for precissioando, encerrar a votação e apresentar os resultados
