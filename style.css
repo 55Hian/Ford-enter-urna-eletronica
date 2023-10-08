@@ -4,6 +4,7 @@ body{
     justify-content: center;
     align-items: center;
     margin: 24px;
+    background-color: darkslateblue;
 }
 
 .urna-eletronica{
@@ -15,7 +16,7 @@ body{
     align-items: center;
     background-color: gray;
 }
-.tela{
+#tela{
     width: 480px;
     height: 320px;
     background-color: black;
