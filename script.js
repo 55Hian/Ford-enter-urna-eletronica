@@ -1,7 +1,7 @@
 function votacao(){
-    let nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
-    let nomeCandidato2 = prompt("Digite o nome do segundo candidato")
-    let nomeCandidato3 = prompt("Digite o nome do terceiro candidato")
+    let nomeCandidato1 = "candidato 1";
+    let nomeCandidato2 = "candidato 2";
+    let nomeCandidato3 = "candidato 3";
     let candidato1 = 0;
     let candidato2 = 0;
     let candidato3 = 0;
@@ -11,96 +11,130 @@ function votacao(){
     let liberaVotos;
     let votacao = 1;
     let contagemDosVotos = 0;
-    let senha;
+    let senha = "0000";
     let senhaDigitada;
+    let modo;
 
-    senha = prompt("cadastre uma senha.");
+   
 
-    while(votacao == 1){
+    modo = prompt("Qual o modo desejado? \n 0 para modo configuração \n 1 para modo votação")
 
-        voto = parseInt(prompt("Digite seu voto"))
+    if(modo == "0" || modo == "1"){
+ 
+        if(modo == "0"){
 
-        switch(voto){
-            case(1):
-            candidato1++;
-            console.log("votou")
-            break
+            senha = prompt("cadastre uma senha.");
+            console.log("Senha cadastrada:" + senha);
 
-            case(2):
-            candidato2++;
-            console.log("votou")
-            break
-            
-            case(3):
-            candidato3++;
-            console.log("votou")
-            break
-            
-            case(5):
-            branco++;
-            console.log("votou")
-            break
+            nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
+            nomeCandidato2 = prompt("Digite o nome do segundo candidato")
+            nomeCandidato3 = prompt("Digite o nome do terceiro candidato")
 
-            case(8):
-            nulo++;
-            console.log("votou")
-            break
+            console.log("candidato 1: " + nomeCandidato1);
+            console.log("candidato 2: " + nomeCandidato2);
+            console.log("candidato 3: " + nomeCandidato3);
 
-            case(0):
-            console.log("entrou 0")
-                liberaVotos = prompt("Para encerrar a votação, digite S, para voltar a votação, digite N")
-                switch(liberaVotos){
+            modo = "1";
 
-                case("S"):
-                    senhaDigitada = prompt("Digite sua senha para iniciar o programa")
-                    if(senhaDigitada == senha){
-                        votacao = 0;
-                        contagemDosVotos = 1;
+        } 
+        
+        if (modo == "1"){
+
+            while(votacao == 1){
+
+                voto = parseInt(prompt("Digite seu voto"))
+        
+                switch(voto){
+                    case(1):
+                    candidato1++;
+                    console.log("votou")
+                    break
+        
+                    case(2):
+                    candidato2++;
+                    console.log("votou")
+                    break
+                    
+                    case(3):
+                    candidato3++;
+                    console.log("votou")
+                    break
+                    
+                    case(5):
+                    branco++;
+                    console.log("votou")
+                    break
+        
+                    case(0):
+                    console.log("entrou 0")
+                        liberaVotos = prompt("Para encerrar a votação, digite S, para voltar a votação, digite N")
+                        switch(liberaVotos){
+        
+                        case("S"):
+                            senhaDigitada = prompt("Digite sua senha para encerrar a votação")
+                            if(senhaDigitada == senha){
+                                votacao = 0;
+                                contagemDosVotos = 1;
+                                break
+                            }else{
+                                senhaDigitada = alert("Senha incorreta, voltando para votação.")
+                                votacao = 1;
+                                contagemDosVotos = 0;
+                                break
+                        }
+                                      
+                        case("N"):
+                            votacao = 1;
+                            contagemDosVotos = 0;
                         break
-                    }else{
-                        senhaDigitada = alert("Senha incorreta, voltando para votação.")
-                        votacao = 1;
-                        contagemDosVotos = 0;
+                        }
+                    break
+        
+                    default:
+                        let confirmaVotoNulo = confirm("Você tem certeza que deseja votar nulo?");
+                        if(confirmaVotoNulo){
+                        nulo++;
+                        console.log("votou nulo")
                         break
+                        } else {
+                            break
+                        }          
+        
                 }
-                              
-                case("N"):
-                    votacao = 1;
-                    contagemDosVotos = 0;
-                break
+              
+            }
+        
+            if(contagemDosVotos == 1){
+                let numeroTotalVotos = candidato1 + candidato2 + candidato3 + branco + nulo;
+        
+                let porcentagemCandidato1 = Math.round(((candidato1/numeroTotalVotos)*100) * 100) / 100 ;
+                let porcentagemCandidato2 = Math.round(((candidato2/numeroTotalVotos)*100) * 100) / 100 ;
+                let porcentagemCandidato3 = Math.round(((candidato3/numeroTotalVotos)*100) * 100) / 100 ;
+                let porcentagemBranco = Math.round(((branco/numeroTotalVotos)*100)*100) / 100;
+                let porcentagemNulo = Math.round(((nulo/numeroTotalVotos)*100)*100) / 100;
+        
+                console.log("O " + nomeCandidato1 + " recebeu " + candidato1 + " votos | Porcentagem de votos: " + porcentagemCandidato1 + "%");
+                console.log("O " + nomeCandidato2 + " recebeu " + candidato2 + " votos | Porcentagem de votos: " + porcentagemCandidato2 + "%");
+                console.log("O " + nomeCandidato3 + " recebeu " + candidato3 + " votos | Porcentagem de votos: " + porcentagemCandidato3 + "%");
+        
+                console.log("Recebemos " + branco + " votos em branco | Porcentagem de votos: " + porcentagemBranco  + "%")
+                console.log("Recebemos " + nulo + " votos nulos | Porcentagem de votos: " + porcentagemNulo  + "%")
+          
+                if(candidato1 > candidato2 && candidato1 > candidato3){
+                    console.log( nomeCandidato1 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos" )
+                } else if(candidato2 > candidato1 && candidato2 > candidato3){
+                    console.log(nomeCandidato2 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
+                } else if(candidato3 > candidato1 && candidato3 > candidato2){
+                    console.log(nomeCandidato3 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
+                } else {
+                    console.log("Houve empate na votação, será necessaria uma nova eleição.")
                 }
-            break
-
+            }
         }
-      
+    
+        } else {
+    modo = prompt("Modo selecionado é invalido! \n Qual o modo desejado? \n 0 para modo configuração \n 1 para modo votação")
     }
-
-    if(contagemDosVotos == 1){
-        let numeroTotalVotos = candidato1 + candidato2 + candidato3 + branco + nulo;
-
-        let porcentagemCandidato1 = (candidato1/numeroTotalVotos)*100;
-        let porcentagemCandidato2 = (candidato2/numeroTotalVotos)*100;
-        let porcentagemCandidato3 = (candidato3/numeroTotalVotos)*100;
-        let porcentagemBranco = (branco/numeroTotalVotos)*100;
-        let porcentagemNulo = (nulo/numeroTotalVotos)*100;
-
-        console.log("O " + nomeCandidato1 + " recebeu " + candidato1 + " votos | Porcentagem de votos: " + porcentagemCandidato1)
-        console.log("O " + nomeCandidato2 + " recebeu " + candidato2 + " votos | Porcentagem de votos: " + porcentagemCandidato2)
-        console.log("O " + nomeCandidato3 + " recebeu " + candidato3 + " votos | Porcentagem de votos: " + porcentagemCandidato3)
-
-        console.log("Recebemos " + branco + " votos em branco | Porcentagem de votos: " + porcentagemBranco)
-        console.log("Recebemos " + nulo + " votos nulos | Porcentagem de votos: " + porcentagemNulo)
-  
-        if(candidato1 > candidato2 && candidato1 > candidato3){
-            console.log( nomeCandidato1 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos" )
-        } else if(candidato2 > candidato1 && candidato2 > candidato3){
-            console.log(nomeCandidato2 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
-        } else if(candidato3 > candidato1 && candidato3 > candidato2){
-            console.log(nomeCandidato3 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
-        }
-    }
-
-
 } 
     
 
