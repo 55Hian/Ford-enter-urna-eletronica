@@ -14,17 +14,21 @@ function votacao(){
     let senha = "0000";
     let senhaDigitada;
     let modo;
+    let etapasenha = 1;
 
    
 
-    modo = prompt("Qual o modo desejado? \n 0 para modo configuração \n 1 para modo votação")
+    modo = prompt("Qual o modo desejado?\n 0 para modo configuração \n 1 para modo votação")
 
     if(modo == "0" || modo == "1"){
  
-        if(modo == "0"){
+        if(modo == "0"){            
 
+            if (etapasenha == 1){
             senha = prompt("cadastre uma senha.");
             console.log("Senha cadastrada:" + senha);
+            let etapasenha = 0;
+        }      
 
             nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
             nomeCandidato2 = prompt("Digite o nome do segundo candidato")
@@ -34,11 +38,21 @@ function votacao(){
             console.log("candidato 2: " + nomeCandidato2);
             console.log("candidato 3: " + nomeCandidato3);
 
-            modo = "1";
+            let confirmaDados = confirm("Informações da votação:\n Candidato 1: " + nomeCandidato1 + "\n Candidato 2: " +  nomeCandidato2 + "\n Candidato 3: " +  nomeCandidato3 + "\n Selecione Ok para processeguir \n Selecione cancel para editar")
+            
+            if(confirmaDados){
+                modo = "1";
+            } else {
+            nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
+            nomeCandidato2 = prompt("Digite o nome do segundo candidato")
+            nomeCandidato3 = prompt("Digite o nome do terceiro candidato")
 
+            confirmaDados = confirm("Informações da votação:\n Candidato 1: " + nomeCandidato1 + "\n Candidato 2: " +  nomeCandidato2 + "\n Candidato 3: " +  nomeCandidato3 + "\n Selecione Ok para processeguir \n Selecione cancel para editar")
+            }
         } 
         
         if (modo == "1"){
+            console.log("entrou modo 1")
 
             while(votacao == 1){
 
