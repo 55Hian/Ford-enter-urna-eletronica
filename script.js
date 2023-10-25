@@ -1,4 +1,13 @@
+var hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+var liberahash = false;
+var liberaverificacaohash = false;
+
+console.log("Dec var" + liberahash)
+
 function votacao(){
+console.log("votação" + liberahash)
+if(liberaverificacaohash == true){
+    if(liberahash == true){
     let nomeCandidato1 = "candidato 1";
     let nomeCandidato2 = "candidato 2";
     let nomeCandidato3 = "candidato 3";
@@ -15,6 +24,7 @@ function votacao(){
     let senhaDigitada;
     let modo;
     let etapasenha = 1;
+    const audio = new Audio('confirmacao.mp3');
 
    
 
@@ -27,7 +37,7 @@ function votacao(){
             if (etapasenha == 1){
             senha = prompt("cadastre uma senha.");
             console.log("Senha cadastrada:" + senha);
-            let etapasenha = 0;
+            etapasenha = 0;
         }      
 
             nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
@@ -61,21 +71,25 @@ function votacao(){
                 switch(voto){
                     case(1):
                     candidato1++;
+                    audio.play();
                     console.log("votou")
                     break
         
                     case(2):
                     candidato2++;
+                    audio.play();
                     console.log("votou")
                     break
                     
                     case(3):
                     candidato3++;
+                    audio.play();
                     console.log("votou")
                     break
                     
                     case(5):
                     branco++;
+                    audio.play();
                     console.log("votou")
                     break
         
@@ -108,6 +122,7 @@ function votacao(){
                         let confirmaVotoNulo = confirm("Você tem certeza que deseja votar nulo?");
                         if(confirmaVotoNulo){
                         nulo++;
+                        audio.play();
                         console.log("votou nulo")
                         break
                         } else {
@@ -149,9 +164,33 @@ function votacao(){
         } else {
     modo = prompt("Modo selecionado é invalido! \n Qual o modo desejado? \n 0 para modo configuração \n 1 para modo votação")
     }
+} else{alert("Urna adulterada!")}
+    }
 } 
+
+async function digestMessage(message) {
+    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+    const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+    const hashHex = hashArray
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join(""); // convert bytes to hex string
+    return hashHex;
+  }
+  
+  digestMessage(votacao()).then((digestHex) => {
+    if(digestHex == hash){
+    liberahash = true; 
+    console.log("hash" + liberahash);
+    liberaverificacaohash = true;
+    console.log(digestHex)
+    console.log(hash);
+}
+});
+
     
 
+  
 
 
 
