@@ -1,196 +1,192 @@
-var hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
 var liberahash = false;
 var liberaverificacaohash = false;
 
-console.log("Dec var" + liberahash)
+verificaIntegridade()
 
 function votacao(){
-console.log("votação" + liberahash)
-if(liberaverificacaohash == true){
-    if(liberahash == true){
-    let nomeCandidato1 = "candidato 1";
-    let nomeCandidato2 = "candidato 2";
-    let nomeCandidato3 = "candidato 3";
-    let candidato1 = 0;
-    let candidato2 = 0;
-    let candidato3 = 0;
-    let branco = 0;
-    let nulo = 0;
-    let voto;
-    let liberaVotos;
-    let votacao = 1;
-    let contagemDosVotos = 0;
-    let senha = "0000";
-    let senhaDigitada;
-    let modo;
-    let etapasenha = 1;
-    const audio = new Audio('confirmacao.mp3');
+    if(liberaverificacaohash == true){
+        if(liberahash == true){
+            let nomeCandidato1 = "candidato 1";
+            let nomeCandidato2 = "candidato 2";
+            let nomeCandidato3 = "candidato 3";
+            let candidato1 = 0;
+            let candidato2 = 0;
+            let candidato3 = 0;
+            let branco = 0;
+            let nulo = 0;
+            let voto;
+            let liberaVotos;
+            let votacao = 1;
+            let contagemDosVotos = 0;
+            let senhaadm = 9999;
+            let senhamesario = 9999;
+            let modo;
+            let etapasenha = 1;
+            const audio = new Audio('confirmacao.mp3');
+        
+            modo = prompt("Qual o modo desejado?\n 0 para modo configuração \n 1 para modo votação")
 
-   
+            if(modo == "0" || modo == "1"){
+                if(modo == "0"){            
+                    if(etapasenha == 1){
+                        senhaadm = prompt("cadastre uma senha administradora.");
+                        senhamesario = prompt("cadastre uma senha para o mesario.");
+                        etapasenha = 0;
+                    }
 
-    modo = prompt("Qual o modo desejado?\n 0 para modo configuração \n 1 para modo votação")
+                    nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
+                    nomeCandidato2 = prompt("Digite o nome do segundo candidato")
+                    nomeCandidato3 = prompt("Digite o nome do terceiro candidato")
 
-    if(modo == "0" || modo == "1"){
- 
-        if(modo == "0"){            
+                    console.log("candidato 1: " + nomeCandidato1);
+                    console.log("candidato 2: " + nomeCandidato2);
+                    console.log("candidato 3: " + nomeCandidato3);
 
-            if (etapasenha == 1){
-            senha = prompt("cadastre uma senha.");
-            console.log("Senha cadastrada:" + senha);
-            etapasenha = 0;
-        }      
+                    let confirmaDados = confirm("Informações da votação:\n Candidato 1: " + nomeCandidato1 + "\n Candidato 2: " +  nomeCandidato2 + "\n Candidato 3: " +  nomeCandidato3 + "\n Selecione Ok para processeguir \n Selecione cancel para editar")
+                    
+                    if(confirmaDados){
+                        modo = "1";
+                    }else{
+                    nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
+                    nomeCandidato2 = prompt("Digite o nome do segundo candidato")
+                    nomeCandidato3 = prompt("Digite o nome do terceiro candidato")
 
-            nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
-            nomeCandidato2 = prompt("Digite o nome do segundo candidato")
-            nomeCandidato3 = prompt("Digite o nome do terceiro candidato")
+                    confirmaDados = confirm("Informações da votação:\n Candidato 1: " + nomeCandidato1 + "\n Candidato 2: " +  nomeCandidato2 + "\n Candidato 3: " +  nomeCandidato3 + "\n Selecione Ok para processeguir \n Selecione cancel para editar")
+                    }
+                } 
+                
+                if(modo == "1"){
+                    while(votacao == 1){
 
-            console.log("candidato 1: " + nomeCandidato1);
-            console.log("candidato 2: " + nomeCandidato2);
-            console.log("candidato 3: " + nomeCandidato3);
+                        voto = parseInt(prompt("Digite seu voto"))
 
-            let confirmaDados = confirm("Informações da votação:\n Candidato 1: " + nomeCandidato1 + "\n Candidato 2: " +  nomeCandidato2 + "\n Candidato 3: " +  nomeCandidato3 + "\n Selecione Ok para processeguir \n Selecione cancel para editar")
+                        if(voto == senhaadm || voto == senhamesario){
+                            liberaVotos = prompt("Para encerrar a votação, digite S, para voltar a votação, digite N")
+                                switch(liberaVotos){                
+                                case("S"):
+                                    votacao = 0;
+                                    contagemDosVotos = 1;
+                                    break
+                                            
+                                default:
+                                    votacao = 1;
+                                    contagemDosVotos = 0;
+                                    break
+                                }
+                            break
+                        }
+                
+                        switch(voto){
+                            case(1):
+                                if(confirm(`Deseja confirmar o voto no(a) candidadto(a): ${nomeCandidato1} ?`)){
+                                    candidato1++;
+                                    audio.play();
+                                    console.log("votou")
+                                    break
+                                }else{
+                                    break
+                                }
+                
+                            case(2):
+                                if(confirm(`Deseja confirmar o voto no(a) candidadto(a): ${nomeCandidato2} ?`)){
+                                    candidato2++;
+                                    audio.play();
+                                    console.log("votou")
+                                    break
+                                } else {
+                                    break
+                                }
+                    
+                            
+                            case(3):
+                                if(confirm(`Deseja confirmar o voto no(a) candidadto(a): ${nomeCandidato3} ?`)){
+                                    candidato3++;
+                                    audio.play();
+                                    console.log("votou")
+                                    break
+                                } else {
+                                    break
+                                }
+                            
+                            case(5):
+                                if(confirm(`Deseja confirmar o voto no(a) candidadto(a) em branco ?`)){
+                                    branco++;
+                                    audio.play();
+                                    console.log("votou")
+                                    break
+                                } else {    
+                                    break
+                                }
+                
+                            default:
+                                let confirmaVotoNulo = confirm("Você tem certeza que deseja votar nulo?");
+                                if(confirmaVotoNulo){
+                                nulo++;
+                                audio.play();
+                                console.log("votou nulo")
+                                break
+                                } else {
+                                    break
+                                }          
+                
+                        }
+                    
+                    }
+                            //   continuar organizando codigo daqui      
+                    if(contagemDosVotos == 1){
+                        let numeroTotalVotos = candidato1 + candidato2 + candidato3 + branco + nulo;
+                
+                        let porcentagemCandidato1 = Math.round(((candidato1/numeroTotalVotos)*100) * 100) / 100 ;
+                        let porcentagemCandidato2 = Math.round(((candidato2/numeroTotalVotos)*100) * 100) / 100 ;
+                        let porcentagemCandidato3 = Math.round(((candidato3/numeroTotalVotos)*100) * 100) / 100 ;
+                        let porcentagemBranco = Math.round(((branco/numeroTotalVotos)*100)*100) / 100;
+                        let porcentagemNulo = Math.round(((nulo/numeroTotalVotos)*100)*100) / 100;
+                
+                        console.log("O " + nomeCandidato1 + " recebeu " + candidato1 + " votos | Porcentagem de votos: " + porcentagemCandidato1 + "%");
+                        console.log("O " + nomeCandidato2 + " recebeu " + candidato2 + " votos | Porcentagem de votos: " + porcentagemCandidato2 + "%");
+                        console.log("O " + nomeCandidato3 + " recebeu " + candidato3 + " votos | Porcentagem de votos: " + porcentagemCandidato3 + "%");
+                
+                        console.log("Recebemos " + branco + " votos em branco | Porcentagem de votos: " + porcentagemBranco  + "%")
+                        console.log("Recebemos " + nulo + " votos nulos | Porcentagem de votos: " + porcentagemNulo  + "%")
+                
+                        if(candidato1 > candidato2 && candidato1 > candidato3){
+                            console.log( nomeCandidato1 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos" )
+                        } else if(candidato2 > candidato1 && candidato2 > candidato3){
+                            console.log(nomeCandidato2 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
+                        } else if(candidato3 > candidato1 && candidato3 > candidato2){
+                            console.log(nomeCandidato3 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
+                        } else {
+                            console.log("Houve empate na votação, será necessaria uma nova eleição.")
+                        }
+                    }
+                }
             
-            if(confirmaDados){
-                modo = "1";
-            } else {
-            nomeCandidato1 = prompt("Digite o nome do primeiro candidato")
-            nomeCandidato2 = prompt("Digite o nome do segundo candidato")
-            nomeCandidato3 = prompt("Digite o nome do terceiro candidato")
-
-            confirmaDados = confirm("Informações da votação:\n Candidato 1: " + nomeCandidato1 + "\n Candidato 2: " +  nomeCandidato2 + "\n Candidato 3: " +  nomeCandidato3 + "\n Selecione Ok para processeguir \n Selecione cancel para editar")
+                } else {
+            modo = prompt("Modo selecionado é invalido! \n Qual o modo desejado? \n 0 para modo configuração \n 1 para modo votação")
             }
         } 
-        
-        if (modo == "1"){
-            console.log("entrou modo 1")
-
-            while(votacao == 1){
-
-                voto = parseInt(prompt("Digite seu voto"))
-        
-                switch(voto){
-                    case(1):
-                    candidato1++;
-                    audio.play();
-                    console.log("votou")
-                    break
-        
-                    case(2):
-                    candidato2++;
-                    audio.play();
-                    console.log("votou")
-                    break
-                    
-                    case(3):
-                    candidato3++;
-                    audio.play();
-                    console.log("votou")
-                    break
-                    
-                    case(5):
-                    branco++;
-                    audio.play();
-                    console.log("votou")
-                    break
-        
-                    case(0):
-                    console.log("entrou 0")
-                        liberaVotos = prompt("Para encerrar a votação, digite S, para voltar a votação, digite N")
-                        switch(liberaVotos){
-        
-                        case("S"):
-                            senhaDigitada = prompt("Digite sua senha para encerrar a votação")
-                            if(senhaDigitada == senha){
-                                votacao = 0;
-                                contagemDosVotos = 1;
-                                break
-                            }else{
-                                senhaDigitada = alert("Senha incorreta, voltando para votação.")
-                                votacao = 1;
-                                contagemDosVotos = 0;
-                                break
-                        }
-                                      
-                        case("N"):
-                            votacao = 1;
-                            contagemDosVotos = 0;
-                        break
-                        }
-                    break
-        
-                    default:
-                        let confirmaVotoNulo = confirm("Você tem certeza que deseja votar nulo?");
-                        if(confirmaVotoNulo){
-                        nulo++;
-                        audio.play();
-                        console.log("votou nulo")
-                        break
-                        } else {
-                            break
-                        }          
-        
-                }
-              
-            }
-        
-            if(contagemDosVotos == 1){
-                let numeroTotalVotos = candidato1 + candidato2 + candidato3 + branco + nulo;
-        
-                let porcentagemCandidato1 = Math.round(((candidato1/numeroTotalVotos)*100) * 100) / 100 ;
-                let porcentagemCandidato2 = Math.round(((candidato2/numeroTotalVotos)*100) * 100) / 100 ;
-                let porcentagemCandidato3 = Math.round(((candidato3/numeroTotalVotos)*100) * 100) / 100 ;
-                let porcentagemBranco = Math.round(((branco/numeroTotalVotos)*100)*100) / 100;
-                let porcentagemNulo = Math.round(((nulo/numeroTotalVotos)*100)*100) / 100;
-        
-                console.log("O " + nomeCandidato1 + " recebeu " + candidato1 + " votos | Porcentagem de votos: " + porcentagemCandidato1 + "%");
-                console.log("O " + nomeCandidato2 + " recebeu " + candidato2 + " votos | Porcentagem de votos: " + porcentagemCandidato2 + "%");
-                console.log("O " + nomeCandidato3 + " recebeu " + candidato3 + " votos | Porcentagem de votos: " + porcentagemCandidato3 + "%");
-        
-                console.log("Recebemos " + branco + " votos em branco | Porcentagem de votos: " + porcentagemBranco  + "%")
-                console.log("Recebemos " + nulo + " votos nulos | Porcentagem de votos: " + porcentagemNulo  + "%")
-          
-                if(candidato1 > candidato2 && candidato1 > candidato3){
-                    console.log( nomeCandidato1 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos" )
-                } else if(candidato2 > candidato1 && candidato2 > candidato3){
-                    console.log(nomeCandidato2 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
-                } else if(candidato3 > candidato1 && candidato3 > candidato2){
-                    console.log(nomeCandidato3 + " é o vencedor! com " + (porcentagemCandidato1 + porcentagemBranco) + "% dos votos")
-                } else {
-                    console.log("Houve empate na votação, será necessaria uma nova eleição.")
-                }
-            }
-        }
-    
-        } else {
-    modo = prompt("Modo selecionado é invalido! \n Qual o modo desejado? \n 0 para modo configuração \n 1 para modo votação")
-    }
-} else{alert("Urna adulterada!")}
     }
 } 
 
-async function digestMessage(message) {
-    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
-    const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
-    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-    const hashHex = hashArray
-      .map((b) => b.toString(16).padStart(2, "0"))
-      .join(""); // convert bytes to hex string
-    return hashHex;
-  }
-  
-  digestMessage(votacao()).then((digestHex) => {
-    if(digestHex == hash){
-    liberahash = true; 
-    console.log("hash" + liberahash);
-    liberaverificacaohash = true;
-    console.log(digestHex)
-    console.log(hash);
+function verificaIntegridade(){
+    fetch('script.js')
+        .then(conteudo => conteudo.text())
+        .then(conteudo => CryptoJS.SHA256(conteudo).toString())
+        .then(hashUrnaAtual => {
+            fetch('hashVerificado')
+                .then(conteudo => conteudo.text())
+                .then(hashVerificado => {
+                    console.log(hashUrnaAtual)
+                    if(hashUrnaAtual == hashVerificado){
+                        liberahash = true; 
+                        liberaverificacaohash = true;
+                    } else {
+                        console.log("Urna adulterada!!!!!!!!")
+                        alert("urna adulterada !!!!!!!!!")
+                    }     
+                })
+    });
 }
-});
-
-    
-
-  
 
 
 
